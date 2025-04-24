@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/gregoryfoo/dev/CPPLearning/build/cmake_install.cmake",
+		"/Users/gregoryfoo/dev/CPPLearning/build/calculator/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
