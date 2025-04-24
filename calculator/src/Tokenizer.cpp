@@ -1,6 +1,6 @@
 #include "Tokenizer.hpp"
 #include <cctype> // For std::isdigit
-
+#include <iostream>
 //Implement constructor
 // Why use an initializer list?
 // Efficiency: avoids constructing expr once and then copying/assigning to it.
@@ -25,7 +25,7 @@ Token Tokenizer::getNextToken() {
     while (pos < expr.size() && std::isspace(expr[pos])) {
         ++pos; // Skip whitespace
     }
-
+  
     if (pos >= expr.size()) {
         return {TokenType::END, ""}; // Return end token if we reach the end of the expression
     }
@@ -37,28 +37,24 @@ Token Tokenizer::getNextToken() {
         while (pos < expr.size() && std::isdigit(expr[pos])) {
             ++pos; // Read the number
         }
+    
         return {TokenType::NUMBER, expr.substr(start, pos - start)}; // Return number token
     }
 
+    ++pos;
     // Handle operators and parentheses
     switch (currentChar) {
         case '+':
-            ++pos;
             return {TokenType::PLUS, "+"};
         case '-':
-            ++pos;
             return {TokenType::MINUS, "-"};
         case '*':
-            ++pos;
             return {TokenType::MULTIPLY, "*"};
         case '/':
-            ++pos;
             return {TokenType::DIVIDE, "/"};
         case '(':
-            ++pos;
             return {TokenType::LPAREN, "("};
         case ')':
-            ++pos;
             return {TokenType::RPAREN, ")"};
         default:
             return {TokenType::END, ""}; // Return end token for unrecognized characters

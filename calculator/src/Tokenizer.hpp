@@ -25,6 +25,6 @@ class Tokenizer {
         std::vector<Token> tokenize(); // Tokenize the input expression and return a vector of tokens
     private:
         std::string expr;
-        size_t pos; // Current position in the expression
+        size_t pos{0}; // Current position in the expression
         Token getNextToken(); // Get the next token from the expression
 };

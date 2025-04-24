@@ -1,6 +1,8 @@
 #include <iostream>
 #include "utils.hpp" //Include the utils header file for utility functions
-
+#include "Tokenizer.hpp"
+#include "Parser.hpp"
+#include "Evaluator.hpp"
 int main()
 {
     std::cout << "Welcome to CLI Calculator!" << std::endl;
@@ -12,5 +14,7 @@ int main()
     trim(line);                                          // Call the trim function to remove leading and trailing whitespace from the input line
     std::cout << "Trimmed input: " << line << std::endl; // Output the trimmed input
 
+    double result = Evaluator::evaluate(line); // Call the evaluate function to calculate the result of the expression
+    std::cout << "Result: " << result << std::endl; // Output the result of the expression
     return 0;
 }
