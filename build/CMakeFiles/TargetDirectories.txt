@@ -1,5 +1,0 @@
-/Users/gregoryfoo/dev/CPPLearning/build/CMakeFiles/edit_cache.dir
-/Users/gregoryfoo/dev/CPPLearning/build/CMakeFiles/rebuild_cache.dir
-/Users/gregoryfoo/dev/CPPLearning/build/calculator/CMakeFiles/calculator.dir
-/Users/gregoryfoo/dev/CPPLearning/build/calculator/CMakeFiles/edit_cache.dir
-/Users/gregoryfoo/dev/CPPLearning/build/calculator/CMakeFiles/rebuild_cache.dir
