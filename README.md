@@ -138,6 +138,67 @@ A CMakeLists.txt entry to build a sensor_test executable alongside your calculat
   - Access by ID (via map)
   - Optional return on missing sensor
 
+Choosing between std::map (a balanced tree) and std::unordered_map (a hash table) comes down to your performance needs and how you intend to use the container. Here’s a breakdown of the key differences and when you might prefer one over the other:
+
+1. Iteration Order
+std::map
+
+Ordered by key.
+
+When you call listSensorIds(), you get IDs in sorted order.
+
+Useful if consistent, reproducible output order matters (e.g., logging, UIs).
+
+std::unordered_map
+
+Unordered iteration.
+
+Keys appear in an implementation-defined order that can change as the map resizes.
+
+Slightly faster to insert/erase but unpredictable order.
+
+2. Time Complexity Guarantees
+
+Operation	std::map	std::unordered_map
+Lookup	O(log n)	O(1) amortized, O(n) worst-case
+Insert/Erase	O(log n)	O(1) amortized, O(n) worst-case
+Iteration	In-order	Unordered
+std::map provides strict O(log n) for all operations—no pathological cases.
+
+std::unordered_map offers average O(1) but in the worst case (many hash collisions) can degrade to O(n).
+
+3. Memory & Overhead
+std::map
+
+Each node stores two pointers (left/right), one parent pointer, plus key+value.
+
+Lower average memory per element compared to a hash table’s buckets + potential slack.
+
+std::unordered_map
+
+Allocates buckets (arrays) and elements; may have extra unused slots to maintain load factor.
+
+More memory overhead, especially if you reserve large capacity.
+
+4. Determinism & Real-Time Constraints
+std::map’s O(log n) bound is deterministic, making it attractive for systems where worst-case behavior matters (e.g., real-time robotics loops).
+
+std::unordered_map’s average case is fast, but the worst-case hash collision scenario might be unacceptable in latency-sensitive code.
+
+5. When to Use Which
+
+Use Case	Recommendation
+You need sorted iteration (e.g., menus, logs)	std::map
+Your listSensorIds() must always be sorted	std::map
+You have millions of sensors and care about raw lookup speed (average case)	std::unordered_map
+You’re in a real-time or safety-critical loop and need bounded latency	std::map
+You don’t care about order and want simpler code	std::unordered_map
+TL;DR
+std::map = ordered keys, guaranteed O(log n), predictable iteration, lower memory overhead.
+
+std::unordered_map = average O(1) lookup, unpredictable iteration order, higher memory overhead, potential worst-case slowdown.
+
+For your SensorManager, if you want to list IDs in sorted order or need deterministic performance, std::map is a solid default. If you later find that iteration order and worst-case latency aren’t concerns, you can always switch to std::unordered_map for slightly faster average lookups.
 ---
 
 ### **Week 4 – File I/O & JSON**

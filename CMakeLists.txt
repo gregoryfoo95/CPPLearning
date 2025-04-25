@@ -9,3 +9,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Add the calculator subproject
 add_subdirectory(calculator)
 add_subdirectory(sensor)
+add_subdirectory(sensorManager)
